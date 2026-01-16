@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heitor's Data Analysis Portfolio</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px 30px 30px 30px;
+            background-color: #f4f4f4;
+        }
+        header {
+            text-align: center;
+            background-color: #333;
+            color: white;
+            padding: 20px;
+        }
+        section {
+            margin: 20px 0;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h2 {
+            color: #333;
+        }
+        pre {
+            background-color: #f8f8f8;
+            padding: 10px;
+            border-left: 4px solid #333;
+            overflow-x: auto;
+        }
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            color: #666;
+        }
+    
+        table, th, td, tr {
+            font-size: 10px;
+            border: 1px solid black;
+            border-collapse: collapse; /* Optional: Makes borders single lines */
+            padding: 8px; /* Optional: Adds space within cells */
+        }
+</style>
+</head>
+<body>
+    <header>
+        <h1>HEITOR DE SOUZA</h1>
+        <h2 style="color: white;">Data Analysis Portfolio</h2>
+    </header>
+
+    <section id="about">
+        <h2>About My Data Analysis Experience</h2>
+        <p>Aspiring Data/Business Analyst. Below is a portfolio project I'm currently working on</p>
+    </section>
+
+    <section id="projects">
+        <h2>Project: CRM Sales Pipeline & Efficiency Optimization</h2>
+        <h3>Executive Summary</h3>
+        
+        <p>In a competitive B2B landscape, a sales team's most valuable resource is time. This project analyzes CRM data to 
+            identify the "Sweet Spot" for sales operations—the specific combination of industries and products that yield the 
+            highest win rates with the shortest sales cycles. By identifying where the pipeline stalls and where it thrives, 
+            this analysis provides actionable recommendations to improve sales velocity and resource allocation for the upcoming 
+            quarter.</p>
+<br>
+        <h3>The Dataset</h3>
+        <p>The analysis is based on a <a href="https://www.kaggle.com/datasets/innocentmfa/crm-sales-opportunities?resource=download&select=sales_pipeline.csv">CRM 
+            Sales Opportunities dataset</a> containing real-world B2B sales records. The data is structured into four primary dimensions:
+        <br>
+        <br>
+        <b>Sales Pipeline:</b> Tracking the journey of an opportunity from "Created" to "Closed" (Won or Lost).
+        <br>
+        <br>
+        <b>Accounts:</b> Detailed profiles of client companies, including industry, size, and location.
+        <br>
+        <br>
+        <b>Products:</b> A catalog of offerings and their respective price points.
+        <br>
+        <br>
+        <b>Sales Teams:</b> Data on individual agents and regional managers.</p>
+        <br>
+        <h3>The Business Questions:</h3>
+        <p>- Which combination of Product and Account Industry represents our most efficient 'Win' engine?
+        <br>
+        <br>
+        - At what point in the sales cycle does a deal's probability of closing drop low enough to be considered a 'Red Flag'?</p>
+        <br>
+
+        <h3>Exploratory Data Analysis using SQL</h3>
+    
+        <h3>1. Total Sales per Month</h3>
+
+        <pre><code>SELECT 
+    TO_CHAR(close_date,'YYYY-MM') as month, 
+    COUNT(*) AS num_sales, 
+    SUM(close_value)::int AS monthly_close_value
+FROM sales_pipeline
+WHERE deal_stage = 'Won'
+GROUP BY month
+ORDER BY month;</code></pre>
+
+<table>
+    <tr>
+        <td>month</td>
+        <td>num_sales</td>
+        <td>monthly_close_value</td>
+    </tr>
+    <tr>
+        <td>2017-03</td>
+        <td>531</td>
+        <td>1134672</td>
+    </tr>
+    <tr>
+        <td>2017-04</td>
+        <td>285</td>
+        <td>721932</td>
+    </tr>
+    <tr>
+        <td>2017-05</td>
+        <td>438</td>
+        <td>1025713</td>
+    </tr>
+    <tr>
+        <td>2017-06</td>
+        <td>531</td>
+        <td>1338466</td>
+    </tr>
+    <tr>
+        <td>2017-07</td>
+        <td>308</td>
+        <td>696932</td>
+    </tr>
+    <tr>
+        <td>2017-08</td>
+        <td>446</td>
+        <td>1050059</td>
+    </tr>
+    <tr>
+        <td>2017-09</td>
+        <td>503</td>
+        <td>1235264</td>
+    </tr>
+    <tr>
+        <td>2017-10</td>
+        <td>279</td>
+        <td>731980</td>
+    </tr>
+    <tr>
+        <td>2017-11</td>
+        <td>406</td>
+        <td>938943</td>
+    </tr>
+    <tr>
+        <td>2017-12</td>
+        <td>511</td>
+        <td>1131573</td>
+    </tr>
+</table>
+        
+        <h3>2. Total Sales per Product</h3>
+        <pre><code>SELECT 
+    product, 
+    COUNT(*) AS num_sales, 
+    SUM(close_value) as total_sales
+FROM sales_pipeline
+WHERE deal_stage = 'Won'
+GROUP BY product
+ORDER BY product;</code></pre>
+
+<table>
+    <tr>
+        <td>product</td>
+        <td>num_sales</td>
+        <td>close_value</td>
+    </tr>
+    <tr>
+        <td>GTK 500</td>
+        <td>15</td>
+        <td>400612</td>
+    </tr>
+    <tr>
+        <td>GTX Basic</td>
+        <td>915</td>
+        <td>499263</td>
+    </tr>
+    <tr>
+        <td>GTX Plus Basic</td>
+        <td>653</td>
+        <td>705275</td>
+    </tr>
+    <tr>
+        <td>GTX Plus Pro</td>
+        <td>479</td>
+        <td>2629651</td>
+    </tr>
+    <tr>
+        <td>GTXPro</td>
+        <td>729</td>
+        <td>3510578</td>
+    </tr>
+    <tr>
+        <td>MG Advanced</td>
+        <td>654</td>
+        <td>2216387</td>
+    </tr>
+    <tr>
+        <td>MG Special</td>
+        <td>793</td>
+        <td>43768</td>
+    </tr>
+</table>
+        
+        <h3>3. Win Rate per Product and Sector</h3>
+        <pre><code>SELECT 	
+    product, 
+    sector, 
+    SUM (CASE 
+        WHEN deal_stage = 'Won' THEN 1
+        ELSE 0 END) AS num_wins,
+    COUNT(*) AS num_opportunities,
+        CONCAT(CAST(ROUND(AVG(CASE 
+                                WHEN deal_stage = 'Won' THEN 1.0
+                                ELSE 0.0 END) * 100,2) AS FLOAT),'%') AS win_rate
+FROM sales_pipeline s
+LEFT JOIN accounts a
+ON s.account=a.account
+GROUP BY product, sector
+ORDER BY (AVG(CASE 
+		WHEN deal_stage = 'Won' THEN 1.0
+		ELSE 0.0 END) * 100,2) DESC;</code></pre>
+        
+<div style="height: 300px; overflow-y: auto; border: 1px solid #ddd;">
+<table>
+    <tr>
+        <td>product</td>
+        <td>sector</td>
+        <td>num_wins</td>
+        <td>num_opportunities</td>
+        <td>win_rate</td>
+    </tr>
+    <tr>
+        <td>GTK 500</td>
+        <td>employment</td>
+        <td>2</td>
+        <td>2</td>
+        <td>100%</td>
+    </tr>
+    <tr>
+        <td>MG Special</td>
+        <td>telecommunications</td>
+        <td>62</td>
+        <td>90</td>
+        <td>68.89%</td>
+    </tr>
+    <tr>
+        <td>GTK 500</td>
+        <td>retail</td>
+        <td>2</td>
+        <td>3</td>
+        <td>66.67%</td>
+    </tr>
+    <tr>
+        <td>GTX Plus Pro</td>
+        <td>software</td>
+        <td>50</td>
+        <td>77</td>
+        <td>64.94%</td>
+    </tr>
+    <tr>
+        <td>GTXPro</td>
+        <td>services</td>
+        <td>46</td>
+        <td>71</td>
+        <td>64.79%</td>
+    </tr>
+    <tr>
+        <td>GTX Basic</td>
+        <td>retail</td>
+        <td>186</td>
+        <td>288</td>
+        <td>64.58%</td>
+    </tr>
+    <tr>
+        <td>GTXPro</td>
+        <td>marketing</td>
+        <td>69</td>
+        <td>107</td>
+        <td>64.49%</td>
+    </tr>
+    <tr>
+        <td>MG Advanced</td>
+        <td>entertainment</td>
+        <td>52</td>
+        <td>81</td>
+        <td>64.2%</td>
+    </tr>
+    <tr>
+        <td>MG Special</td>
+        <td>software</td>
+        <td>83</td>
+        <td>131</td>
+        <td>63.36%</td>
+    </tr>
+    <tr>
+        <td>GTX Plus Basic</td>
+        <td>marketing</td>
+        <td>65</td>
+        <td>103</td>
+        <td>63.11%</td>
+    </tr>
+    <tr>
+        <td>GTX Basic</td>
+        <td>marketing</td>
+        <td>86</td>
+        <td>138</td>
+        <td>62.32%</td>
+    </tr>
+    <tr>
+        <td>GTX Basic</td>
+        <td>entertainment</td>
+        <td>57</td>
+        <td>92</td>
+        <td>61.96%</td>
+    </tr>
+    <tr>
+        <td>MG Special</td>
+        <td>employment</td>
+        <td>34</td>
+        <td>55</td>
+        <td>61.82%</td>
+    </tr>
+    <tr>
+        <td>GTX Plus Pro</td>
+        <td>medical</td>
+        <td>71</td>
+        <td>115</td>
+        <td>61.74%</td>
+    </tr>
+    <tr>
+        <td>GTX Plus Pro</td>
+        <td>telecommunications</td>
+        <td>37</td>
+        <td>60</td>
+        <td>61.67%</td>
+    </tr>
+    <tr>
+        <td>MG Special</td>
+        <td>technology</td>
+        <td>120</td>
+        <td>196</td>
+        <td>61.22%</td>
+    </tr>
+    <tr>
+        <td>MG Advanced</td>
+        <td>employment</td>
+        <td>30</td>
+        <td>49</td>
+        <td>61.22%</td>
+    </tr>
+    <tr>
+        <td>GTXPro</td>
+        <td>technology</td>
+        <td>121</td>
+        <td>200</td>
+        <td>60.5%</td>
+    </tr>
+    <tr>
+        <td>MG Special</td>
+        <td>services</td>
+        <td>43</td>
+        <td>72</td>
+        <td>59.72%</td>
+    </tr>
+    <tr>
+        <td>GTX Plus Pro</td>
+        <td>technology</td>
+        <td>68</td>
+        <td>114</td>
+        <td>59.65%</td>
+    </tr>
+    <tr>
+        <td>GTX Basic</td>
+        <td>software</td>
+        <td>96</td>
+        <td>161</td>
+        <td>59.63%</td>
+    </tr>
+    <tr>
+        <td>GTXPro</td>
+        <td>software</td>
+        <td>87</td>
+        <td>146</td>
+        <td>59.59%</td>
+    </tr>
+    <tr>
+        <td>GTX Basic</td>
+        <td>employment</td>
+        <td>45</td>
+        <td>76</td>
+        <td>59.21%</td>
+    </tr>
+    <tr>
+        <td>GTXPro</td>
+        <td>finance</td>
+        <td>71</td>
+        <td>120</td>
+        <td>59.17%</td>
+    </tr>
+    <tr>
+        <td>MG Advanced</td>
+        <td>marketing</td>
+        <td>53</td>
+        <td>90</td>
+        <td>58.89%</td>
+    </tr>
+    <tr>
+        <td>GTX Basic</td>
+        <td>services</td>
+        <td>47</td>
+        <td>80</td>
+        <td>58.75%</td>
+    </tr>
+    <tr>
+        <td>GTXPro</td>
+        <td>retail</td>
+        <td>137</td>
+        <td>235</td>
+        <td>58.3%</td>
+    </tr>
+    <tr>
+        <td>GTX Plus Basic</td>
+        <td>technology</td>
+        <td>111</td>
+        <td>191</td>
+        <td>58.12%</td>
+    </tr>
+    <tr>
+        <td>GTX Plus Pro</td>
+        <td>services</td>
+        <td>29</td>
+        <td>50</td>
+        <td>58%</td>
+    </tr>
+    <tr>
+        <td>MG Advanced</td>
+        <td>telecommunications</td>
+        <td>44</td>
+        <td>76</td>
+        <td>57.89%</td>
+    </tr>
+    <tr>
+        <td>MG Special</td>
+        <td>medical</td>
+        <td>123</td>
+        <td>213</td>
+        <td>57.75%</td>
+    </tr>
+    <tr>
+        <td>GTX Plus Basic</td>
+        <td>medical</td>
+        <td>93</td>
+        <td>162</td>
+        <td>57.41%</td>
+    </tr>
+    <tr>
+        <td>GTX Plus Pro</td>
+        <td>employment</td>
+        <td>16</td>
+        <td>28</td>
+        <td>57.14%</td>
+    </tr>
+    <tr>
+        <td>GTX Plus Pro</td>
+        <td>retail</td>
+        <td>92</td>
+        <td>161</td>
+        <td>57.14%</td>
+    </tr>
+    <tr>
+        <td>GTX Plus Pro</td>
+        <td>finance</td>
+        <td>42</td>
+        <td>74</td>
+        <td>56.76%</td>
+    </tr>
+    <tr>
+        <td>MG Special</td>
+        <td>entertainment</td>
+        <td>43</td>
+        <td>76</td>
+        <td>56.58%</td>
+    </tr>
+    <tr>
+        <td>MG Special</td>
+        <td>marketing</td>
+        <td>83</td>
+        <td>147</td>
+        <td>56.46%</td>
+    </tr>
+    <tr>
+        <td>MG Advanced</td>
+        <td>software</td>
+        <td>70</td>
+        <td>124</td>
+        <td>56.45%</td>
+    </tr>
+    <tr>
+        <td>GTX Basic</td>
+        <td>medical</td>
+        <td>120</td>
+        <td>213</td>
+        <td>56.34%</td>
+    </tr>
+    <tr>
+        <td>GTX Plus Pro</td>
+        <td>entertainment</td>
+        <td>27</td>
+        <td>48</td>
+        <td>56.25%</td>
+    </tr>
+    <tr>
+        <td>MG Advanced</td>
+        <td>technology</td>
+        <td>101</td>
+        <td>182</td>
+        <td>55.49%</td>
+    </tr>
+    <tr>
+        <td>MG Special</td>
+        <td>finance</td>
+        <td>67</td>
+        <td>121</td>
+        <td>55.37%</td>
+    </tr>
+    <tr>
+        <td>GTX Basic</td>
+        <td>finance</td>
+        <td>68</td>
+        <td>123</td>
+        <td>55.28%</td>
+    </tr>
+    <tr>
+        <td>GTX Plus Basic</td>
+        <td>retail</td>
+        <td>126</td>
+        <td>228</td>
+        <td>55.26%</td>
+    </tr>
+    <tr>
+        <td>GTX Plus Basic</td>
+        <td>finance</td>
+        <td>62</td>
+        <td>113</td>
+        <td>54.87%</td>
+    </tr>
+    <tr>
+        <td>GTX Plus Basic</td>
+        <td>software</td>
+        <td>63</td>
+        <td>116</td>
+        <td>54.31%</td>
+    </tr>
+    <tr>
+        <td>GTX Plus Pro</td>
+        <td>marketing</td>
+        <td>47</td>
+        <td>87</td>
+        <td>54.02%</td>
+    </tr>
+    <tr>
+        <td>MG Advanced</td>
+        <td>retail</td>
+        <td>121</td>
+        <td>224</td>
+        <td>54.02%</td>
+    </tr>
+    <tr>
+        <td>GTX Basic</td>
+        <td>technology</td>
+        <td>150</td>
+        <td>279</td>
+        <td>53.76%</td>
+    </tr>
+    <tr>
+        <td>GTXPro</td>
+        <td>medical</td>
+        <td>89</td>
+        <td>166</td>
+        <td>53.61%</td>
+    </tr>
+    <tr>
+        <td>GTX Basic</td>
+        <td>telecommunications</td>
+        <td>60</td>
+        <td>113</td>
+        <td>53.1%</td>
+    </tr>
+    <tr>
+        <td>GTXPro</td>
+        <td>entertainment</td>
+        <td>37</td>
+        <td>70</td>
+        <td>52.86%</td>
+    </tr>
+    <tr>
+        <td>MG Advanced</td>
+        <td>medical</td>
+        <td>94</td>
+        <td>178</td>
+        <td>52.81%</td>
+    </tr>
+    <tr>
+        <td>GTX Plus Basic</td>
+        <td>telecommunications</td>
+        <td>39</td>
+        <td>74</td>
+        <td>52.7%</td>
+    </tr>
+    <tr>
+        <td>GTX Plus Basic</td>
+        <td>entertainment</td>
+        <td>40</td>
+        <td>76</td>
+        <td>52.63%</td>
+    </tr>
+    <tr>
+        <td>MG Special</td>
+        <td>retail</td>
+        <td>135</td>
+        <td>258</td>
+        <td>52.33%</td>
+    </tr>
+    <tr>
+        <td>GTXPro</td>
+        <td>employment</td>
+        <td>30</td>
+        <td>58</td>
+        <td>51.72%</td>
+    </tr>
+    <tr>
+        <td>GTX Plus Basic</td>
+        <td>services</td>
+        <td>32</td>
+        <td>62</td>
+        <td>51.61%</td>
+    </tr>
+    <tr>
+        <td>MG Advanced</td>
+        <td>finance</td>
+        <td>63</td>
+        <td>123</td>
+        <td>51.22%</td>
+    </tr>
+    <tr>
+        <td>GTX Plus Basic</td>
+        <td>employment</td>
+        <td>22</td>
+        <td>43</td>
+        <td>51.16%</td>
+    </tr>
+    <tr>
+        <td>GTK 500</td>
+        <td>marketing</td>
+        <td>1</td>
+        <td>2</td>
+        <td>50%</td>
+    </tr>
+    <tr>
+        <td>GTK 500</td>
+        <td>software</td>
+        <td>1</td>
+        <td>2</td>
+        <td>50%</td>
+    </tr>
+    <tr>
+        <td>GTK 500</td>
+        <td>finance</td>
+        <td>2</td>
+        <td>4</td>
+        <td>50%</td>
+    </tr>
+    <tr>
+        <td>GTK 500</td>
+        <td>medical</td>
+        <td>2</td>
+        <td>4</td>
+        <td>50%</td>
+    </tr>
+    <tr>
+        <td>GTK 500</td>
+        <td>entertainment</td>
+        <td>4</td>
+        <td>8</td>
+        <td>50%</td>
+    </tr>
+    <tr>
+        <td>GTXPro</td>
+        <td>telecommunications</td>
+        <td>42</td>
+        <td>85</td>
+        <td>49.41%</td>
+    </tr>
+    <tr>
+        <td>MG Advanced</td>
+        <td>services</td>
+        <td>26</td>
+        <td>54</td>
+        <td>48.15%</td>
+    </tr>
+    <tr>
+        <td>GTK 500</td>
+        <td>telecommunications</td>
+        <td>1</td>
+        <td>3</td>
+        <td>33.33%</td>
+    </tr>
+    <tr>
+        <td>GTK 500</td>
+        <td>services</td>
+        <td>0</td>
+        <td>1</td>
+        <td>0%</td>
+    </tr>
+    <tr>
+        <td>GTK 500</td>
+        <td>technology</td>
+        <td>0</td>
+        <td>3</td>
+        <td>0%</td>
+    </tr>
+</table>
+</div>
+
+<h3>4. Number of days till conclusion (Win or Loss) </h3>
+ <pre><code>SELECT *
+FROM crosstab('SELECT product, deal_stage, ROUND(AVG(close_date - engage_date)) as avg_duration_days
+FROM sales_pipeline
+WHERE deal_stage  IN( ''Won'', ''Lost'')
+GROUP BY product, deal_stage
+ORDER BY product, deal_stage') AS ct (product varchar, avg_days_till_loss numeric, days_till_win numeric)</pre></code>
+
+<table>
+    <tr>
+        <td>product</td>
+        <td>avg_days_till_loss</td>
+        <td>avg_days_till_win</td>
+    </tr>
+    <tr>
+        <td>GTK 500</td>
+        <td>38</td>
+        <td>64</td>
+    </tr>
+    <tr>
+        <td>GTX Basic</td>
+        <td>41</td>
+        <td>55</td>
+    </tr>
+    <tr>
+        <td>GTX Plus Basic</td>
+        <td>46</td>
+        <td>52</td>
+    </tr>
+    <tr>
+        <td>GTX Plus Pro</td>
+        <td>36</td>
+        <td>52</td>
+    </tr>
+    <tr>
+        <td>GTXPro</td>
+        <td>41</td>
+        <td>48</td>
+    </tr>
+    <tr>
+        <td>MG Advanced</td>
+        <td>40</td>
+        <td>52</td>
+    </tr>
+    <tr>
+        <td>MG Special</td>
+        <td>43</td>
+        <td>51</td>
+    </tr>
+</table>
+    </section>
+
+    
+
+    <section id="projects">
+        <h2>SQL Projects</h2>
+        <ul>
+            <li><strong>Database Migration:</strong> Migrated a legacy database to a new schema, optimizing queries for better performance.</li>
+            <li><strong>Data Analysis Dashboard:</strong> Created SQL queries to power a real-time dashboard for sales data.</li>
+            <li><strong>ETL Pipeline:</strong> Developed SQL scripts for extracting, transforming, and loading data from multiple sources.</li>
+        </ul>
+    </section>
+
+    <footer>
+        <p>&copy; 2026. Contact: heitordesouza3@gmail.com</p>
+    </footer>
+</body>
+</html>
