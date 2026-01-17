@@ -83,16 +83,18 @@
         <br>
         <b>Sales Teams:</b> Data on individual agents and regional managers.</p>
         <br>
+        
         <h3>The Business Questions:</h3>
-        <p>- Which combination of Product and Account Industry represents our most efficient 'Win' engine?
+        <ul>
+        <li>Which combination of Product and Account Industry represents our most efficient 'Win' engine?</li>
         <br>
-        <br>
-        - At what point in the sales cycle does a deal's probability of closing drop low enough to be considered a 'Red Flag'?</p>
+        <li>At what point in the sales cycle does a deal's probability of closing drop low enough to be considered a 'Red Flag'?</li>
+        </ul>
         <br>
 
-        <h3>Exploratory Data Analysis using SQL</h3>
+        <h3>Exploratory Data Analysis:</h3>
     
-        <h3>1. Total Sales per Month</h3>
+        <h3>Total Sales per Month</h3>
 
         <pre><code>SELECT 
     TO_CHAR(close_date,'YYYY-MM') as month, 
@@ -103,6 +105,7 @@ WHERE deal_stage = 'Won'
 GROUP BY month
 ORDER BY month;</code></pre>
 
+<div style="height: 200px; overflow-y: auto; border: 1px solid #ddd;">
 <table>
     <tr>
         <td>month</td>
@@ -160,8 +163,9 @@ ORDER BY month;</code></pre>
         <td>1131573</td>
     </tr>
 </table>
+</div>
         
-        <h3>2. Total Sales per Product</h3>
+        <h3>Total Sales per Product</h3>
         <pre><code>SELECT 
     product, 
     COUNT(*) AS num_sales, 
@@ -171,6 +175,7 @@ WHERE deal_stage = 'Won'
 GROUP BY product
 ORDER BY product;</code></pre>
 
+<div style="height: 200px; overflow-y: auto; border: 1px solid #ddd;">
 <table>
     <tr>
         <td>product</td>
@@ -213,8 +218,11 @@ ORDER BY product;</code></pre>
         <td>43768</td>
     </tr>
 </table>
-        
-        <h3>3. Win Rate per Product and Sector</h3>
+</div>
+<br>
+        <h3>Answering the Business Questions:</h3>
+
+        <h3>Win Rate per Product and Sector</h3>
         <pre><code>SELECT 	
     product, 
     sector, 
@@ -233,7 +241,7 @@ ORDER BY (AVG(CASE
 		WHEN deal_stage = 'Won' THEN 1.0
 		ELSE 0.0 END) * 100,2) DESC;</code></pre>
         
-<div style="height: 300px; overflow-y: auto; border: 1px solid #ddd;">
+<div style="height: 200px; overflow-y: auto; border: 1px solid #ddd;">
 <table>
     <tr>
         <td>product</td>
@@ -735,7 +743,7 @@ ORDER BY (AVG(CASE
 </table>
 </div>
 
-<h3>4. Number of days till conclusion (Win or Loss) </h3>
+<h3>Number of days till conclusion (Win or Loss) </h3>
  <pre><code>SELECT *
 FROM crosstab('SELECT product, deal_stage, ROUND(AVG(close_date - engage_date)) as avg_duration_days
 FROM sales_pipeline
@@ -743,6 +751,7 @@ WHERE deal_stage  IN( ''Won'', ''Lost'')
 GROUP BY product, deal_stage
 ORDER BY product, deal_stage') AS ct (product varchar, avg_days_till_loss numeric, days_till_win numeric)</pre></code>
 
+<div style="height: 200px; overflow-y: auto; border: 1px solid #ddd;">
 <table>
     <tr>
         <td>product</td>
@@ -785,13 +794,90 @@ ORDER BY product, deal_stage') AS ct (product varchar, avg_days_till_loss numeri
         <td>51</td>
     </tr>
 </table>
+</div>
+
+<h3>Frequency Distribution of Sales Velocity (10-Unit Bins) </h3>
+ <pre><code>SELECT ((close_date - engage_date)/10)*10 as days_groups, COUNT(*) as num_of_wins
+FROM sales_pipeline
+WHERE deal_stage = 'Won'
+GROUP BY days_groups
+ORDER BY days_groups</pre></code>    
+
+<div style="height: 200px; overflow-y: auto; border: 1px solid #ddd;">
+<table>
+    <tr>
+        <td>days_groups</td>
+        <td>num_of_wins</td>
+    </tr>
+    <tr>
+        <td>0</td>
+        <td>1114</td>
+    </tr>
+    <tr>
+        <td>10</td>
+        <td>634</td>
+    </tr>
+    <tr>
+        <td>20</td>
+        <td>64</td>
+    </tr>
+    <tr>
+        <td>30</td>
+        <td>65</td>
+    </tr>
+    <tr>
+        <td>40</td>
+        <td>128</td>
+    </tr>
+    <tr>
+        <td>50</td>
+        <td>161</td>
+    </tr>
+    <tr>
+        <td>60</td>
+        <td>307</td>
+    </tr>
+    <tr>
+        <td>70</td>
+        <td>368</td>
+    </tr>
+    <tr>
+        <td>80</td>
+        <td>388</td>
+    </tr>
+    <tr>
+        <td>90</td>
+        <td>376</td>
+    </tr>
+    <tr>
+        <td>100</td>
+        <td>287</td>
+    </tr>
+    <tr>
+        <td>110</td>
+        <td>183</td>
+    </tr>
+    <tr>
+        <td>120</td>
+        <td>119</td>
+    </tr>
+    <tr>
+        <td>130</td>
+        <td>44</td>
+    </tr>
+</table>
+</div>
+
     </section>
 
-    
+
+
+    <section id="projects">
+
+    </section>
 
     <footer>
         <p>&copy; 2026. Contact: heitordesouza3@gmail.com</p>
     </footer>
 </body>
 </html>
-
