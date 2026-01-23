@@ -7,8 +7,10 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 20px 30px 30px 30px;
+            margin: 20px 200px 30px 200px;
             background-color: #f4f4f4;
+            line-height: 1.5;
+            text-align: justify;
         }
         header {
             text-align: center;
@@ -19,6 +21,8 @@
         section {
             margin: 20px 0;
             padding: 20px;
+            padding-left: 48px;
+            padding-right: 48px;
             background-color: white;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
@@ -37,19 +41,50 @@
             margin-top: 20px;
             color: #666;
         }
+
+        a:link {
+            color: #0077B5;
+}
+
+
+        a:visited {
+            color: #619aba; 
+        }
+
+        /* Mouse over link (optional) */
+        a:hover {
+            color: #c4c4c4; /* Pink */
+        }
+    a:link, a:visited, a:hover, a:active {
+  text-decoration: none;
+}
+    
+    li {
+        margin-bottom: 5px;
+    }
+    
+    table, th, td {
+        font-size: inherit;
+        padding: 2px;
+    }
+
+</style>
     </style>
 </head>
 <body>
-   <header>
+
+<header>
     <h1>HEITOR DE SOUZA</h1>
     <p>Data Analysis | SQL | Power BI</p>
-    <p><img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" alt="LinkedIn" width="20" height="20"><a href="https://www.linkedin.com/in/heitordesouza3" target="_blank"> View my LinkedIn</a></p>
+    <p><img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" alt="LinkedIn" width="20" height="20"><a href="https://www.linkedin.com/in/heitordesouza3" target="_blank"> Check my Linkedin</a></p>
 
 </header>
 
-    <section id="about">
+
+<section id="about">
+
         <h2>About My SQL Experience</h2>
-        <p>Aspiring Data/Business Analyst. Below is a portfolio project I'm currently working on</p>
+        <p>Aspiring Data & Business Analyst with a strong focus on SQL, currently developing practical portfolio projects to solve real business problems.</p>
     </section>
 
     <section id="examples">
@@ -64,7 +99,8 @@
 <p><strong>Accounts:</strong> Detailed profiles of client companies, including industry, size, and location.</p>
 <p><strong>Products:</strong> A catalog of offerings and their respective price points.</p>
 <p><strong>Sales Teams:</strong> Data on individual agents and regional managers.</p>
-<p>&nbsp;</p>
+<img src="database_diagram.png" alt="Database Diagram">
+
 <p><strong>Questions</strong></p>
 <ul>
 <li>What does the data tell me?</li>
@@ -87,7 +123,7 @@
 </ul>
 <p><strong>&nbsp;</strong></p>
 <p><strong>1) What does the data tell me? High Success at High Cost</strong></p>
-<img src="open_opportunities.png" alt="Open, close and Sum of Opportunities">
+<img src="open opportunities.png" alt="Open, close and Sum of Opportunities">
 <p>The sales team scaled prospecting activity 300x over nine months, growing from 7 opened opportunities in October 2016 to 2,257 by July 2017. However, the heat map reveals a critical efficiency gap: while opportunity opening (red cells) accelerated rapidly, closure activity (green cells) lagged significantly behind. The first closures didn't occur until March 2017&mdash;five months after prospecting began&mdash;creating a pipeline buildup of 1,185 open opportunities.</p>
 <p>The table tracks opened opportunities (new entries), closed opportunities (resolved deals), and "open opportunities on current month" (cumulative workload). By July 2017, the team managed 2,257 concurrent open opportunities as prospecting outpaced closure capacity. This backlog persisted through year-end 2017, with 1,500-2,500 open opportunities monthly from March onward despite steady closure activity, confirming that extended sales cycles became the operational norm.</p>
 <table style="border-collapse: collapse; border: 1px solid #999;">
@@ -208,27 +244,20 @@
 </ul>
 <p>&nbsp;</p>
 <p><strong>Recommendations</strong></p>
-<ol>
-<li><strong> Concentrate Resources on the "Big Three"</strong></li>
-</ol>
+<p><strong>1. Concentrate Resources on the "Big Three"</strong></p>
 <p>Sales teams should prioritize GTX Plus Pro, GTX Pro, and MG Advanced as primary focus products. These offerings require fewer leads to generate superior revenue compared to lower-performing alternatives, simultaneously improving efficiency and team productivity. Time saved from reduced opportunity chasing can be reinvested in higher-quality prospect engagement and deal development.</p>
-<ol start="2">
-<li><strong> Implement Aggressive Pipeline Velocity Targets</strong></li>
-</ol>
+
+<p><strong>2. Implement Aggressive Pipeline Velocity Targets</strong></p>
 <p>Establish 15-day closure targets for standard deals and 30-day maximums for complex negotiations. Revenue density analysis proves that deals aging beyond these thresholds generate diminishing returns regardless of win probability. Sales managers should implement weekly pipeline reviews that flag deals approaching age limits, with clear escalation or disqualification protocols to prevent resource drain on low-density opportunities.</p>
-<ol start="3">
-<li><strong> Eliminate Low-ROI Activities</strong></li>
-</ol>
+
+<p><strong>3. Eliminate Low-ROI Activities</strong></p>
 <p>GTX Basic and MG Special demonstrate high order volume but contribute minimally to bottom-line revenue. Current resource allocation to these products represents inefficient time investment with negligible financial impact. Consider deprioritizing these products in sales quotas and compensation structures, or reassigning them to junior staff for skill development while senior sellers focus on high-value opportunities.</p>
-<ol start="4">
-<li><strong> Implement Product-Centric Sales Strategy</strong></li>
-</ol>
+
+<p><strong>4. Implement Product-Centric Sales Strategy</strong></p>
 <p>Abandon sector-based targeting in favor of product-focused sales enablement. Since performance remains consistent across industries, invest in product-specific training, collateral development, and qualification criteria rather than industry expertise. This approach maximizes the transferable knowledge that drives results regardless of market segment.</p>
-<ol start="5">
-<li><strong> Redesign Compensation to Reward Speed</strong></li>
-</ol>
+
+<p><strong>5. Redesign Compensation to Reward Speed</strong></p>
 <p>Current compensation structures likely reward deal closure regardless of timeline, inadvertently incentivizing sales teams to nurse aged deals with poor density. Implement velocity bonuses that multiply commission rates for deals closed within optimal windows (1.5x for &lt;15 days, 1.25x for &lt;30 days). This aligns individual incentives with organizational efficiency and accelerates cash flow.</p>
-    </section>
 
     <section id="projects">
         
@@ -239,5 +268,3 @@
     </footer>
 </body>
 </html>
-
-
