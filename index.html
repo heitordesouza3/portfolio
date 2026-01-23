@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Heitor's Data Analysis Portfolio</title>
+    <title>SQL Portfolio</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -37,847 +37,203 @@
             margin-top: 20px;
             color: #666;
         }
-    
-        table, th, td, tr {
-            font-size: 10px;
-            border: 1px solid black;
-            border-collapse: collapse; /* Optional: Makes borders single lines */
-            padding: 8px; /* Optional: Adds space within cells */
-        }
-</style>
+    </style>
 </head>
 <body>
     <header>
         <h1>HEITOR DE SOUZA</h1>
-        <h2 style="color: white;">Data Analysis Portfolio</h2>
+        <p>Data Analysis Portfolio</p>
     </header>
 
     <section id="about">
-        <h2>About My Data Analysis Experience</h2>
+        <h2>About My SQL Experience</h2>
         <p>Aspiring Data/Business Analyst. Below is a portfolio project I'm currently working on</p>
     </section>
 
-    <section id="projects">
-        <h2>Project: CRM Sales Pipeline & Efficiency Optimization</h2>
-        <h3>Executive Summary</h3>
-        
-        <p>In a competitive B2B landscape, a sales team's most valuable resource is time. This project analyzes CRM data to 
-            identify the "Sweet Spot" for sales operations—the specific combination of industries and products that yield the 
-            highest win rates with the shortest sales cycles. By identifying where the pipeline stalls and where it thrives, 
-            this analysis provides actionable recommendations to improve sales velocity and resource allocation for the upcoming 
-            quarter.</p>
-<br>
-        <h3>The Dataset</h3>
-        <p>The analysis is based on a <a href="https://www.kaggle.com/datasets/innocentmfa/crm-sales-opportunities?resource=download&select=sales_pipeline.csv">CRM 
-            Sales Opportunities dataset</a> containing real-world B2B sales records. The data is structured into four primary dimensions:
-        <br>
-        <br>
-        <b>Sales Pipeline:</b> Tracking the journey of an opportunity from "Created" to "Closed" (Won or Lost).
-        <br>
-        <br>
-        <b>Accounts:</b> Detailed profiles of client companies, including industry, size, and location.
-        <br>
-        <br>
-        <b>Products:</b> A catalog of offerings and their respective price points.
-        <br>
-        <br>
-        <b>Sales Teams:</b> Data on individual agents and regional managers.</p>
-        <br>
-        
-        <h3>The Business Questions:</h3>
-        <ul>
-        <li>Which combination of Product and Account Industry represents our most efficient 'Win' engine?</li>
-        <br>
-        <li>At what point in the sales cycle does a deal's probability of closing drop low enough to be considered a 'Red Flag'?</li>
-        </ul>
-        <br>
-
-        <h3>Exploratory Data Analysis:</h3>
-    
-        <h3>Total Sales per Month</h3>
-
-        <pre><code>SELECT 
-    TO_CHAR(close_date,'YYYY-MM') as month, 
-    COUNT(*) AS num_sales, 
-    SUM(close_value)::int AS monthly_close_value
-FROM sales_pipeline
-WHERE deal_stage = 'Won'
-GROUP BY month
-ORDER BY month;</code></pre>
-
-<div style="height: 200px; overflow-y: auto; border: 1px solid #ddd;">
-<table>
-    <tr>
-        <td>month</td>
-        <td>num_sales</td>
-        <td>monthly_close_value</td>
-    </tr>
-    <tr>
-        <td>2017-03</td>
-        <td>531</td>
-        <td>1134672</td>
-    </tr>
-    <tr>
-        <td>2017-04</td>
-        <td>285</td>
-        <td>721932</td>
-    </tr>
-    <tr>
-        <td>2017-05</td>
-        <td>438</td>
-        <td>1025713</td>
-    </tr>
-    <tr>
-        <td>2017-06</td>
-        <td>531</td>
-        <td>1338466</td>
-    </tr>
-    <tr>
-        <td>2017-07</td>
-        <td>308</td>
-        <td>696932</td>
-    </tr>
-    <tr>
-        <td>2017-08</td>
-        <td>446</td>
-        <td>1050059</td>
-    </tr>
-    <tr>
-        <td>2017-09</td>
-        <td>503</td>
-        <td>1235264</td>
-    </tr>
-    <tr>
-        <td>2017-10</td>
-        <td>279</td>
-        <td>731980</td>
-    </tr>
-    <tr>
-        <td>2017-11</td>
-        <td>406</td>
-        <td>938943</td>
-    </tr>
-    <tr>
-        <td>2017-12</td>
-        <td>511</td>
-        <td>1131573</td>
-    </tr>
+    <section id="examples">
+        <p><strong>Project: CRM Sales Pipeline &amp; Efficiency Optimization </strong></p>
+<p><strong>Executive Summary </strong></p>
+<p>In a competitive B2B landscape, a sales team's most valuable resource is time. This project analyzes CRM data to identify the "Sweet Spot" for sales operations&mdash;the specific combination of industries and products that yield the highest win rates with the shortest sales cycles. By identifying where the pipeline stalls and where it thrives, this analysis provides actionable recommendations to improve sales velocity and resource allocation for the upcoming quarter.</p>
+<p>&nbsp;</p>
+<p><strong>The Dataset </strong></p>
+<p>The analysis is based on a <a href="https://www.kaggle.com/datasets/innocentmfa/crm-sales-opportunities?resource=download&select=sales_pipeline.csv">CRM 
+            Sales Opportunities dataset</a> containing real-world B2B sales records. The data is structured into four primary dimensions:</p>
+<p><strong>Sales Pipeline:</strong> Tracking the journey of an opportunity from "Created" to "Closed" (Won or Lost).</p>
+<p><strong>Accounts:</strong> Detailed profiles of client companies, including industry, size, and location.</p>
+<p><strong>Products:</strong> A catalog of offerings and their respective price points.</p>
+<p><strong>Sales Teams:</strong> Data on individual agents and regional managers.</p>
+<p>&nbsp;</p>
+<p><strong>Questions</strong></p>
+<ul>
+<li>What does the data tell me?</li>
+<li>Which combination of Product and Account Industry represents our most efficient 'Win' engine?</li>
+<li>At what point in the sales cycle does a deal's probability of closing drop low enough to be considered a 'Red Flag'?</li>
+</ul>
+<p>&nbsp;</p>
+<p><strong>Key insights:</strong></p>
+<ul>
+<li>The sales organization scaled prospecting 300x in nine months (from 7 to 2257 opportunities) but experienced a five-month lag before first closures, creating persistent operational burden of 1500-2500 concurrent open opportunities from March 2017 onward.</li>
+<li>Sales teams invest nearly 80% of a winning deal's timeline on opportunities that ultimately generate zero revenue, with lost deals consuming an average of 41 days before disqualification.</li>
+<li>Sector-based sales strategies offer limited optimization potential. All industries generate consistent Expected Value (~$1400-$1700 per deal), proving that resource allocation should prioritize product mix over market segmentation.</li>
+<li>High opportunity volume creates the illusion of productivity while reducing overall efficiency. Quality decisively outweighs quantity in revenue generation&mdash;top performers operate with fewer opportunities but higher per-deal returns.</li>
+<li>The efficiency paradox reveals that high-volume products (GTX Basic: 2000+ opportunities, MG Special: 1600+) generate the lowest Expected Value, while premium products succeed with 40% fewer leads.</li>
+<li>Three products (GTX Plus Pro, GTX Pro, and MG Advanced) drive 80% of total revenue despite representing a fraction of the catalog, with Expected Values ranging from $1900 to $3200+ per deal.</li>
+<li>Pipeline velocity analysis identifies day 35 as the primary red flag zone where win probability drops to 61% and volume has collapsed by 70%. Deals exceeding 30 days enter abnormal cycle territory.</li>
+<li>Maximum revenue generation occurs in the first 15 days (78% of won deals), not at peak win probability points. The late-stage probability spike reflects survivor bias in a small pool, not sustainable revenue patterns.</li>
+<li>Pipeline stability in Expected Value ($1500-$2000 consistently across deal age) conceals declining efficiency, creating a dangerous illusion that masks exponentially diminishing returns on time invested.</li>
+<li>Revenue density collapses by 90%+ after the first 30 days, making aged deals resource traps regardless of win probability. Fast closures at lower conversion rates outperform slow, high-probability deals.</li>
+</ul>
+<p><strong>&nbsp;</strong></p>
+<p><strong>1) What does the data tell me? High Success at High Cost</strong></p>
+<img src="open opportunities.png" alt="Open, close and Sum of Opportunities">
+<p>The sales team scaled prospecting activity 300x over nine months, growing from 7 opened opportunities in October 2016 to 2,257 by July 2017. However, the heat map reveals a critical efficiency gap: while opportunity opening (red cells) accelerated rapidly, closure activity (green cells) lagged significantly behind. The first closures didn't occur until March 2017&mdash;five months after prospecting began&mdash;creating a pipeline buildup of 1,185 open opportunities.</p>
+<p>The table tracks opened opportunities (new entries), closed opportunities (resolved deals), and "open opportunities on current month" (cumulative workload). By July 2017, the team managed 2,257 concurrent open opportunities as prospecting outpaced closure capacity. This backlog persisted through year-end 2017, with 1,500-2,500 open opportunities monthly from March onward despite steady closure activity, confirming that extended sales cycles became the operational norm.</p>
+<table style="border-collapse: collapse; border: 1px solid #999;">
+    <thead>
+        <tr style="background-color: #4a4a4a; color: white;">
+            <th style="border: 1px solid #999; padding: 8px;">Deal Stage</th>
+            <th style="border: 1px solid #999; padding: 8px;">Days Until Closure</th>
+            <th style="border: 1px solid #999; padding: 8px;">Percentage of total</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr style="background-color: #e8e8e8;">
+            <td style="border: 1px solid #999; padding: 8px;">Won</td>
+            <td style="border: 1px solid #999; padding: 8px;">52</td>
+            <td style="border: 1px solid #999; padding: 8px;">63.15%</td>
+        </tr>
+        <tr style="background-color: #d0d0d0;">
+            <td style="border: 1px solid #999; padding: 8px;">Lost</td>
+            <td style="border: 1px solid #999; padding: 8px;">41</td>
+            <td style="border: 1px solid #999; padding: 8px;">36.85%</td>
+        </tr>
+    </tbody>
 </table>
-</div>
-        
-        <h3>Total Sales per Product</h3>
-        <pre><code>SELECT 
-    product, 
-    COUNT(*) AS num_sales, 
-    SUM(close_value) as total_sales
-FROM sales_pipeline
-WHERE deal_stage = 'Won'
-GROUP BY product
-ORDER BY product;</code></pre>
-
-<div style="height: 200px; overflow-y: auto; border: 1px solid #ddd;">
-<table>
-    <tr>
-        <td>product</td>
-        <td>num_sales</td>
-        <td>close_value</td>
-    </tr>
-    <tr>
-        <td>GTK 500</td>
-        <td>15</td>
-        <td>400612</td>
-    </tr>
-    <tr>
-        <td>GTX Basic</td>
-        <td>915</td>
-        <td>499263</td>
-    </tr>
-    <tr>
-        <td>GTX Plus Basic</td>
-        <td>653</td>
-        <td>705275</td>
-    </tr>
-    <tr>
-        <td>GTX Plus Pro</td>
-        <td>479</td>
-        <td>2629651</td>
-    </tr>
-    <tr>
-        <td>GTXPro</td>
-        <td>729</td>
-        <td>3510578</td>
-    </tr>
-    <tr>
-        <td>MG Advanced</td>
-        <td>654</td>
-        <td>2216387</td>
-    </tr>
-    <tr>
-        <td>MG Special</td>
-        <td>793</td>
-        <td>43768</td>
-    </tr>
+<p>The organization achieved a 63,15% win rate across all opportunities, a strong conversion rate that suggests effective qualification and sales execution. However, this headline metric masks a costly inefficiency: lost deals consume an average of 41 days before disqualification, compared to 52 days for won deals. This 11-day difference appears modest, but the business implication is severe. <strong>Sales teams invest nearly 80% of a winning deal's timeline on opportunities that ultimately generate zero revenue.</strong></p>
+<table style="border-collapse: collapse; border: 1px solid #999;">
+    <thead>
+        <tr style="background-color: #4a4a4a; color: white;">
+            <th style="border: 1px solid #999; padding: 8px;">Deal Stage</th>
+            <th style="border: 1px solid #999; padding: 8px;">Count of deals</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr style="background-color: #e8e8e8;">
+            <td style="border: 1px solid #999; padding: 8px;">Won</td>
+            <td style="border: 1px solid #999; padding: 8px;">4238</td>
+        </tr>
+        <tr style="background-color: #d0d0d0;">
+            <td style="border: 1px solid #999; padding: 8px;">Prospecting</td>
+            <td style="border: 1px solid #999; padding: 8px;">500</td>
+        </tr>
+        <tr style="background-color: #e8e8e8;">
+            <td style="border: 1px solid #999; padding: 8px;">Lost</td>
+            <td style="border: 1px solid #999; padding: 8px;">2473</td>
+        </tr>
+        <tr style="background-color: #d0d0d0;">
+            <td style="border: 1px solid #999; padding: 8px;">Engaging</td>
+            <td style="border: 1px solid #999; padding: 8px;">1589</td>
+        </tr>
+    </tbody>
 </table>
-</div>
-<br>
-        <h3>Answering the Business Questions:</h3>
-
-        <h3>Win Rate per Product and Sector</h3>
-        <pre><code>SELECT 	
-    product, 
-    sector, 
-    SUM (CASE 
-        WHEN deal_stage = 'Won' THEN 1
-        ELSE 0 END) AS num_wins,
-    COUNT(*) AS num_opportunities,
-        CONCAT(CAST(ROUND(AVG(CASE 
-                                WHEN deal_stage = 'Won' THEN 1.0
-                                ELSE 0.0 END) * 100,2) AS FLOAT),'%') AS win_rate
-FROM sales_pipeline s
-LEFT JOIN accounts a
-ON s.account=a.account
-GROUP BY product, sector
-ORDER BY (AVG(CASE 
-		WHEN deal_stage = 'Won' THEN 1.0
-		ELSE 0.0 END) * 100,2) DESC;</code></pre>
-        
-<div style="height: 200px; overflow-y: auto; border: 1px solid #ddd;">
-<table>
-    <tr>
-        <td>product</td>
-        <td>sector</td>
-        <td>num_wins</td>
-        <td>num_opportunities</td>
-        <td>win_rate</td>
-    </tr>
-    <tr>
-        <td>GTK 500</td>
-        <td>employment</td>
-        <td>2</td>
-        <td>2</td>
-        <td>100%</td>
-    </tr>
-    <tr>
-        <td>MG Special</td>
-        <td>telecommunications</td>
-        <td>62</td>
-        <td>90</td>
-        <td>68.89%</td>
-    </tr>
-    <tr>
-        <td>GTK 500</td>
-        <td>retail</td>
-        <td>2</td>
-        <td>3</td>
-        <td>66.67%</td>
-    </tr>
-    <tr>
-        <td>GTX Plus Pro</td>
-        <td>software</td>
-        <td>50</td>
-        <td>77</td>
-        <td>64.94%</td>
-    </tr>
-    <tr>
-        <td>GTXPro</td>
-        <td>services</td>
-        <td>46</td>
-        <td>71</td>
-        <td>64.79%</td>
-    </tr>
-    <tr>
-        <td>GTX Basic</td>
-        <td>retail</td>
-        <td>186</td>
-        <td>288</td>
-        <td>64.58%</td>
-    </tr>
-    <tr>
-        <td>GTXPro</td>
-        <td>marketing</td>
-        <td>69</td>
-        <td>107</td>
-        <td>64.49%</td>
-    </tr>
-    <tr>
-        <td>MG Advanced</td>
-        <td>entertainment</td>
-        <td>52</td>
-        <td>81</td>
-        <td>64.2%</td>
-    </tr>
-    <tr>
-        <td>MG Special</td>
-        <td>software</td>
-        <td>83</td>
-        <td>131</td>
-        <td>63.36%</td>
-    </tr>
-    <tr>
-        <td>GTX Plus Basic</td>
-        <td>marketing</td>
-        <td>65</td>
-        <td>103</td>
-        <td>63.11%</td>
-    </tr>
-    <tr>
-        <td>GTX Basic</td>
-        <td>marketing</td>
-        <td>86</td>
-        <td>138</td>
-        <td>62.32%</td>
-    </tr>
-    <tr>
-        <td>GTX Basic</td>
-        <td>entertainment</td>
-        <td>57</td>
-        <td>92</td>
-        <td>61.96%</td>
-    </tr>
-    <tr>
-        <td>MG Special</td>
-        <td>employment</td>
-        <td>34</td>
-        <td>55</td>
-        <td>61.82%</td>
-    </tr>
-    <tr>
-        <td>GTX Plus Pro</td>
-        <td>medical</td>
-        <td>71</td>
-        <td>115</td>
-        <td>61.74%</td>
-    </tr>
-    <tr>
-        <td>GTX Plus Pro</td>
-        <td>telecommunications</td>
-        <td>37</td>
-        <td>60</td>
-        <td>61.67%</td>
-    </tr>
-    <tr>
-        <td>MG Special</td>
-        <td>technology</td>
-        <td>120</td>
-        <td>196</td>
-        <td>61.22%</td>
-    </tr>
-    <tr>
-        <td>MG Advanced</td>
-        <td>employment</td>
-        <td>30</td>
-        <td>49</td>
-        <td>61.22%</td>
-    </tr>
-    <tr>
-        <td>GTXPro</td>
-        <td>technology</td>
-        <td>121</td>
-        <td>200</td>
-        <td>60.5%</td>
-    </tr>
-    <tr>
-        <td>MG Special</td>
-        <td>services</td>
-        <td>43</td>
-        <td>72</td>
-        <td>59.72%</td>
-    </tr>
-    <tr>
-        <td>GTX Plus Pro</td>
-        <td>technology</td>
-        <td>68</td>
-        <td>114</td>
-        <td>59.65%</td>
-    </tr>
-    <tr>
-        <td>GTX Basic</td>
-        <td>software</td>
-        <td>96</td>
-        <td>161</td>
-        <td>59.63%</td>
-    </tr>
-    <tr>
-        <td>GTXPro</td>
-        <td>software</td>
-        <td>87</td>
-        <td>146</td>
-        <td>59.59%</td>
-    </tr>
-    <tr>
-        <td>GTX Basic</td>
-        <td>employment</td>
-        <td>45</td>
-        <td>76</td>
-        <td>59.21%</td>
-    </tr>
-    <tr>
-        <td>GTXPro</td>
-        <td>finance</td>
-        <td>71</td>
-        <td>120</td>
-        <td>59.17%</td>
-    </tr>
-    <tr>
-        <td>MG Advanced</td>
-        <td>marketing</td>
-        <td>53</td>
-        <td>90</td>
-        <td>58.89%</td>
-    </tr>
-    <tr>
-        <td>GTX Basic</td>
-        <td>services</td>
-        <td>47</td>
-        <td>80</td>
-        <td>58.75%</td>
-    </tr>
-    <tr>
-        <td>GTXPro</td>
-        <td>retail</td>
-        <td>137</td>
-        <td>235</td>
-        <td>58.3%</td>
-    </tr>
-    <tr>
-        <td>GTX Plus Basic</td>
-        <td>technology</td>
-        <td>111</td>
-        <td>191</td>
-        <td>58.12%</td>
-    </tr>
-    <tr>
-        <td>GTX Plus Pro</td>
-        <td>services</td>
-        <td>29</td>
-        <td>50</td>
-        <td>58%</td>
-    </tr>
-    <tr>
-        <td>MG Advanced</td>
-        <td>telecommunications</td>
-        <td>44</td>
-        <td>76</td>
-        <td>57.89%</td>
-    </tr>
-    <tr>
-        <td>MG Special</td>
-        <td>medical</td>
-        <td>123</td>
-        <td>213</td>
-        <td>57.75%</td>
-    </tr>
-    <tr>
-        <td>GTX Plus Basic</td>
-        <td>medical</td>
-        <td>93</td>
-        <td>162</td>
-        <td>57.41%</td>
-    </tr>
-    <tr>
-        <td>GTX Plus Pro</td>
-        <td>employment</td>
-        <td>16</td>
-        <td>28</td>
-        <td>57.14%</td>
-    </tr>
-    <tr>
-        <td>GTX Plus Pro</td>
-        <td>retail</td>
-        <td>92</td>
-        <td>161</td>
-        <td>57.14%</td>
-    </tr>
-    <tr>
-        <td>GTX Plus Pro</td>
-        <td>finance</td>
-        <td>42</td>
-        <td>74</td>
-        <td>56.76%</td>
-    </tr>
-    <tr>
-        <td>MG Special</td>
-        <td>entertainment</td>
-        <td>43</td>
-        <td>76</td>
-        <td>56.58%</td>
-    </tr>
-    <tr>
-        <td>MG Special</td>
-        <td>marketing</td>
-        <td>83</td>
-        <td>147</td>
-        <td>56.46%</td>
-    </tr>
-    <tr>
-        <td>MG Advanced</td>
-        <td>software</td>
-        <td>70</td>
-        <td>124</td>
-        <td>56.45%</td>
-    </tr>
-    <tr>
-        <td>GTX Basic</td>
-        <td>medical</td>
-        <td>120</td>
-        <td>213</td>
-        <td>56.34%</td>
-    </tr>
-    <tr>
-        <td>GTX Plus Pro</td>
-        <td>entertainment</td>
-        <td>27</td>
-        <td>48</td>
-        <td>56.25%</td>
-    </tr>
-    <tr>
-        <td>MG Advanced</td>
-        <td>technology</td>
-        <td>101</td>
-        <td>182</td>
-        <td>55.49%</td>
-    </tr>
-    <tr>
-        <td>MG Special</td>
-        <td>finance</td>
-        <td>67</td>
-        <td>121</td>
-        <td>55.37%</td>
-    </tr>
-    <tr>
-        <td>GTX Basic</td>
-        <td>finance</td>
-        <td>68</td>
-        <td>123</td>
-        <td>55.28%</td>
-    </tr>
-    <tr>
-        <td>GTX Plus Basic</td>
-        <td>retail</td>
-        <td>126</td>
-        <td>228</td>
-        <td>55.26%</td>
-    </tr>
-    <tr>
-        <td>GTX Plus Basic</td>
-        <td>finance</td>
-        <td>62</td>
-        <td>113</td>
-        <td>54.87%</td>
-    </tr>
-    <tr>
-        <td>GTX Plus Basic</td>
-        <td>software</td>
-        <td>63</td>
-        <td>116</td>
-        <td>54.31%</td>
-    </tr>
-    <tr>
-        <td>GTX Plus Pro</td>
-        <td>marketing</td>
-        <td>47</td>
-        <td>87</td>
-        <td>54.02%</td>
-    </tr>
-    <tr>
-        <td>MG Advanced</td>
-        <td>retail</td>
-        <td>121</td>
-        <td>224</td>
-        <td>54.02%</td>
-    </tr>
-    <tr>
-        <td>GTX Basic</td>
-        <td>technology</td>
-        <td>150</td>
-        <td>279</td>
-        <td>53.76%</td>
-    </tr>
-    <tr>
-        <td>GTXPro</td>
-        <td>medical</td>
-        <td>89</td>
-        <td>166</td>
-        <td>53.61%</td>
-    </tr>
-    <tr>
-        <td>GTX Basic</td>
-        <td>telecommunications</td>
-        <td>60</td>
-        <td>113</td>
-        <td>53.1%</td>
-    </tr>
-    <tr>
-        <td>GTXPro</td>
-        <td>entertainment</td>
-        <td>37</td>
-        <td>70</td>
-        <td>52.86%</td>
-    </tr>
-    <tr>
-        <td>MG Advanced</td>
-        <td>medical</td>
-        <td>94</td>
-        <td>178</td>
-        <td>52.81%</td>
-    </tr>
-    <tr>
-        <td>GTX Plus Basic</td>
-        <td>telecommunications</td>
-        <td>39</td>
-        <td>74</td>
-        <td>52.7%</td>
-    </tr>
-    <tr>
-        <td>GTX Plus Basic</td>
-        <td>entertainment</td>
-        <td>40</td>
-        <td>76</td>
-        <td>52.63%</td>
-    </tr>
-    <tr>
-        <td>MG Special</td>
-        <td>retail</td>
-        <td>135</td>
-        <td>258</td>
-        <td>52.33%</td>
-    </tr>
-    <tr>
-        <td>GTXPro</td>
-        <td>employment</td>
-        <td>30</td>
-        <td>58</td>
-        <td>51.72%</td>
-    </tr>
-    <tr>
-        <td>GTX Plus Basic</td>
-        <td>services</td>
-        <td>32</td>
-        <td>62</td>
-        <td>51.61%</td>
-    </tr>
-    <tr>
-        <td>MG Advanced</td>
-        <td>finance</td>
-        <td>63</td>
-        <td>123</td>
-        <td>51.22%</td>
-    </tr>
-    <tr>
-        <td>GTX Plus Basic</td>
-        <td>employment</td>
-        <td>22</td>
-        <td>43</td>
-        <td>51.16%</td>
-    </tr>
-    <tr>
-        <td>GTK 500</td>
-        <td>marketing</td>
-        <td>1</td>
-        <td>2</td>
-        <td>50%</td>
-    </tr>
-    <tr>
-        <td>GTK 500</td>
-        <td>software</td>
-        <td>1</td>
-        <td>2</td>
-        <td>50%</td>
-    </tr>
-    <tr>
-        <td>GTK 500</td>
-        <td>finance</td>
-        <td>2</td>
-        <td>4</td>
-        <td>50%</td>
-    </tr>
-    <tr>
-        <td>GTK 500</td>
-        <td>medical</td>
-        <td>2</td>
-        <td>4</td>
-        <td>50%</td>
-    </tr>
-    <tr>
-        <td>GTK 500</td>
-        <td>entertainment</td>
-        <td>4</td>
-        <td>8</td>
-        <td>50%</td>
-    </tr>
-    <tr>
-        <td>GTXPro</td>
-        <td>telecommunications</td>
-        <td>42</td>
-        <td>85</td>
-        <td>49.41%</td>
-    </tr>
-    <tr>
-        <td>MG Advanced</td>
-        <td>services</td>
-        <td>26</td>
-        <td>54</td>
-        <td>48.15%</td>
-    </tr>
-    <tr>
-        <td>GTK 500</td>
-        <td>telecommunications</td>
-        <td>1</td>
-        <td>3</td>
-        <td>33.33%</td>
-    </tr>
-    <tr>
-        <td>GTK 500</td>
-        <td>services</td>
-        <td>0</td>
-        <td>1</td>
-        <td>0%</td>
-    </tr>
-    <tr>
-        <td>GTK 500</td>
-        <td>technology</td>
-        <td>0</td>
-        <td>3</td>
-        <td>0%</td>
-    </tr>
+<p>This "Slow No" problem represents a significant drag on organizational productivity. With 36,85% of deals resulting in losses, the sales team spends roughly one-third of its total effort (approximately 41 days &times; 2.473 lost deals = 101.393 days of cumulative effort) on unproductive pursuits. When customer acquisition costs are factored in, <strong>the organization cannot afford to invest 6+ weeks nurturing deals destined to fail</strong>. The analysis that follows examines how product selection, pipeline velocity, and qualification rigor can reduce this efficiency gap and redirect resources toward high-probability, high-value opportunities.</p>
+<p><strong>&nbsp;</strong></p>
+<p><strong>2) Which combination of Product and Account Industry represents our most efficient 'Win' engine? </strong></p>
+<p>This analysis examines sales performance across products and sectors to identify the most efficient revenue drivers. By employing Expected Value (EV) as the primary metric and analyzing opportunity volume patterns, the study reveals that <strong>product selection, not market sector, determines sales efficiency</strong>. The findings challenge conventional volume-based sales approaches and identify specific products that generate maximum revenue with minimal resource investment.</p>
+<p>Traditional sales metrics emphasize win rates, but this approach lacks critical context. A product achieving 100% conversion on $500 deals generates less business impact than a 50%-win rate on $2000 opportunities. This analysis uses <strong>Expected Value per deal</strong> as the core metric, calculated as:</p>
+<p><strong>Expected Value = Average Deal Size &times; Win Rate</strong></p>
+<p>&nbsp;</p>
+<p>This framework balances revenue potential with realistic close probability, providing a more accurate measure of sales efficiency than win rate alone. The analysis excludes GTK 500 from sector and volume comparisons due to limited sample size (0-4 deals per sector), which would reduce statistical reliability and skew results.</p>
+<p>&nbsp;</p>
+<p><strong>Finding 1: </strong>Product Drives Performance, Not Sector</p>
+<p>[image]</p>
+<p>The side-by-side comparison reveals the fundamental insight of this analysis. The left chart shows Expected Value across sectors, displaying remarkable uniformity: all industries generate between $1400-$1700 in EV with minimal variance. Entertainment leads slightly, but the differences are marginal and statistically insignificant. No sector demonstrates a clear competitive advantage.</p>
+<p>The right chart tells a dramatically different story. Expected Value by product shows substantial variation, with GTX Plus Pro generating over $3500 per deal while MG Special barely registers. The top three products (GTX Plus Pro, GTX Pro, and MG Advanced) create a clear performance tier that separates them from the rest of the portfolio. This stark contrast between flat sector performance and dynamic product performance proves that <strong>what you sell matters far more than who you sell to</strong>.</p>
+<p>[image]</p>
+<p>The stacked bar chart provides deeper confirmation of this pattern. The internal product composition remains consistent across all industries. GTX Plus Pro (dark purple), GTX Pro (pink), and MG Advanced (light purple) dominate value contribution consistently. GTX Basic (orange) and MG Special (yellow) contribute minimally regardless of which industry they serve.</p>
+<p><strong>Finding 2: </strong>Quality Over Quantity</p>
+<p>[image]</p>
+<p>A counterintuitive pattern emerges when examining lead volume alongside Expected Value. The chart reveals an inverse relationship between opportunity volume and revenue efficiency. GTX Basic leads with nearly 1900 opportunities, followed by MG Special at approximately 1600. These high-volume products attract the most leads but, as established earlier, generate the lowest Expected Value per deal.</p>
+<p>In contrast, the top revenue performers (highlighted) operate with significantly fewer opportunities. GTK 500, with minimal volume, represents the experimental category discussed earlier.</p>
+<p>This represents the ideal sales scenario: fewer opportunities requiring less time investment while generating substantially higher per-deal returns. Rather than indicating weak demand, lower volume for premium products reflects superior lead quality and more efficient resource allocation. Sales teams pursuing GTX Basic's 2000 opportunities expend more effort for lower aggregate returns compared to focusing on GTX Plus Pro's selective but lucrative pipeline of 1000 higher-probability, higher-value deals.</p>
+<p>&nbsp;</p>
+<p><strong>Finding 3: </strong>Three Products Drive 80% of Revenue</p>
+<p>After controlling for statistical significance, three products demonstrate superior performance across all metrics:</p>
+<table style="border-collapse: collapse; border: 1px solid #999;">
+    <thead>
+        <tr style="background-color: #4a4a4a; color: white;">
+            <th style="border: 1px solid #999; padding: 8px;">Product</th>
+            <th style="border: 1px solid #999; padding: 8px;">Performance Profile</th>
+            <th style="border: 1px solid #999; padding: 8px;">Strategic Role</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr style="background-color: #e8e8e8;">
+            <td style="border: 1px solid #999; padding: 8px;">GTX Plus Pro</td>
+            <td style="border: 1px solid #999; padding: 8px;">~59% Win Rate | $3,200+ EV</td>
+            <td style="border: 1px solid #999; padding: 8px;">The Gold Standard. High win rate with significant revenue.</td>
+        </tr>
+        <tr style="background-color: #d0d0d0;">
+            <td style="border: 1px solid #999; padding: 8px;">GTX Pro</td>
+            <td style="border: 1px solid #999; padding: 8px;">~57% Win Rate | $2,700+ EV</td>
+            <td style="border: 1px solid #999; padding: 8px;">The Engine. High volume and consistent reliability.</td>
+        </tr>
+        <tr style="background-color: #e8e8e8;">
+            <td style="border: 1px solid #999; padding: 8px;">MG Advanced</td>
+            <td style="border: 1px solid #999; padding: 8px;">~56% Win Rate | $1,900 EV</td>
+            <td style="border: 1px solid #999; padding: 8px;">The Bread &amp; Butter. Solid returns with stable demand.</td>
+        </tr>
+    </tbody>
 </table>
-</div>
-
-<h3>Number of days till conclusion (Win or Loss) </h3>
- <pre><code>SELECT *
-FROM crosstab('SELECT product, deal_stage, ROUND(AVG(close_date - engage_date)) as avg_duration_days
-FROM sales_pipeline
-WHERE deal_stage  IN( ''Won'', ''Lost'')
-GROUP BY product, deal_stage
-ORDER BY product, deal_stage') AS ct (product varchar, avg_days_till_loss numeric, days_till_win numeric)</pre></code>
-
-<div style="height: 200px; overflow-y: auto; border: 1px solid #ddd;">
-<table>
-    <tr>
-        <td>product</td>
-        <td>avg_days_till_loss</td>
-        <td>avg_days_till_win</td>
-    </tr>
-    <tr>
-        <td>GTK 500</td>
-        <td>38</td>
-        <td>64</td>
-    </tr>
-    <tr>
-        <td>GTX Basic</td>
-        <td>41</td>
-        <td>55</td>
-    </tr>
-    <tr>
-        <td>GTX Plus Basic</td>
-        <td>46</td>
-        <td>52</td>
-    </tr>
-    <tr>
-        <td>GTX Plus Pro</td>
-        <td>36</td>
-        <td>52</td>
-    </tr>
-    <tr>
-        <td>GTXPro</td>
-        <td>41</td>
-        <td>48</td>
-    </tr>
-    <tr>
-        <td>MG Advanced</td>
-        <td>40</td>
-        <td>52</td>
-    </tr>
-    <tr>
-        <td>MG Special</td>
-        <td>43</td>
-        <td>51</td>
-    </tr>
-</table>
-</div>
-
-<h3>Frequency Distribution of Sales Velocity (10-Unit Bins) </h3>
- <pre><code>SELECT ((close_date - engage_date)/10)*10 as days_groups, COUNT(*) as num_of_wins
-FROM sales_pipeline
-WHERE deal_stage = 'Won'
-GROUP BY days_groups
-ORDER BY days_groups</pre></code>    
-
-<div style="height: 200px; overflow-y: auto; border: 1px solid #ddd;">
-<table>
-    <tr>
-        <td>days_groups</td>
-        <td>num_of_wins</td>
-    </tr>
-    <tr>
-        <td>0</td>
-        <td>1114</td>
-    </tr>
-    <tr>
-        <td>10</td>
-        <td>634</td>
-    </tr>
-    <tr>
-        <td>20</td>
-        <td>64</td>
-    </tr>
-    <tr>
-        <td>30</td>
-        <td>65</td>
-    </tr>
-    <tr>
-        <td>40</td>
-        <td>128</td>
-    </tr>
-    <tr>
-        <td>50</td>
-        <td>161</td>
-    </tr>
-    <tr>
-        <td>60</td>
-        <td>307</td>
-    </tr>
-    <tr>
-        <td>70</td>
-        <td>368</td>
-    </tr>
-    <tr>
-        <td>80</td>
-        <td>388</td>
-    </tr>
-    <tr>
-        <td>90</td>
-        <td>376</td>
-    </tr>
-    <tr>
-        <td>100</td>
-        <td>287</td>
-    </tr>
-    <tr>
-        <td>110</td>
-        <td>183</td>
-    </tr>
-    <tr>
-        <td>120</td>
-        <td>119</td>
-    </tr>
-    <tr>
-        <td>130</td>
-        <td>44</td>
-    </tr>
-</table>
-</div>
-
+<p>&nbsp;</p>
+<p>These three products collectively account for over 80% of total revenue despite representing a fraction of the product catalog. Their combination of strong win rates, substantial deal sizes, and manageable opportunity volumes creates maximum sales efficiency.</p>
+<p><strong>3)&nbsp;</strong><strong>At what point in the pipeline does a deal's probability of closing drop low enough to become a Red Flag? </strong></p>
+<p><strong>Finding 4: </strong><strong>Fast Losses Beat Slow Wins</strong></p>
+<p>[image]</p>
+<p>Pipeline analysis reveals a counterintuitive W-shaped pattern that identifies three critical decision zones. Win probability (purple line) starts at 52%, climbs to 79% at day 30, drops to a concerning 61% around day 35, then recovers to 81% by day 135. However, the volume of won deals (blue bars) tells the real story&mdash;massive concentration in the first 15 days with over 700 closures, then a dramatic collapse to under 200 deals for the remainder of almost all the pipeline.</p>
+<p><strong>The warning signs intensify at day 35</strong>, where win probability hits its lowest point at approximately 61%. This represents the critical juncture where early-stage "doomed" opportunities haven't yet been disqualified. <strong>Deals lingering in the 35-50-day range face the highest abandonment risk</strong> and warrant immediate intervention or disqualification. The subsequent probability recovery after day 50 reflects survivor bias&mdash;only highly committed prospects remain, not improved deal quality.</p>
+<p>More critically, <strong>any deal extending beyond 30 days enters efficiency red flag territory</strong>. While later-stage deals show higher win probabilities, the volume collapse proves these represent a tiny fraction of actual revenue generation. The data demonstrates that 78% of successful deals close within the first 30 days, making prolonged cycles statistically abnormal and resource-inefficient.</p>
+<p>[image]</p>
+<p>Despite declining volume, Expected Sales Amount remains deceptively stable around $1500-$2000 throughout the 140-day window. This stability creates a dangerous trap for sales managers. The metric suggests pipeline health regardless of deal age, masking the critical reality that aged deals consume disproportionate resources for equivalent expected output. A deal with $1500 expected value on day 5 requires one week of sales effort, while the same $1500 on day 50 has already consumed ten weeks&mdash;a tenfold difference in resource efficiency.</p>
+<p>This stability paradox occurs because high-volume quick wins are replaced in aggregate value by fewer, higher-probability late-stage deals. The pipeline trades quantity for certainty, maintaining consistent weighted dollar value while actual opportunity count plummets. Sales teams monitoring only expected value will miss the efficiency collapse hidden beneath these stable numbers.</p>
+<p>&nbsp;[image]</p>
+<p>Revenue Density (expected sales amount divided by days in pipeline) exposes the true cost structure of aged deals. The metric reveals dramatic concentration at pipeline origin, exceeding $600/day at day zero, then collapsing to under $100/day by day 20 and approaching $20/day by day 60. This density curve establishes clear red flag thresholds:</p>
+<p><strong>Pipeline Red Flag System:</strong></p>
+<ul>
+<li><strong>Days 0-15 (Green Zone):</strong> Density &gt;%100/day, representing 78% of won deals. Optimal efficiency zone where most revenue generates with minimal time investment.</li>
+<li><strong>Days 20-45 (Yellow Zone):</strong> Density drops below $50/day, win probability hits 61% trough. Deals require immediate escalation, additional qualification, or strategic disqualification decision.</li>
+<li><strong>Days 50+ (Red Zone):</strong> Density approaches $20/day, volume collapses to &lt;10% of early pipeline. Despite high win probability (64-81%), these deals represent resource traps. A $2000 sale on day 60 delivers less than 10% of the density achieved on day 5.</li>
+</ul>
+<p>&nbsp;</p>
+<p><strong>Recommendations</strong></p>
+<ol>
+<li><strong> Concentrate Resources on the "Big Three"</strong></li>
+</ol>
+<p>Sales teams should prioritize GTX Plus Pro, GTX Pro, and MG Advanced as primary focus products. These offerings require fewer leads to generate superior revenue compared to lower-performing alternatives, simultaneously improving efficiency and team productivity. Time saved from reduced opportunity chasing can be reinvested in higher-quality prospect engagement and deal development.</p>
+<ol start="2">
+<li><strong> Implement Aggressive Pipeline Velocity Targets</strong></li>
+</ol>
+<p>Establish 15-day closure targets for standard deals and 30-day maximums for complex negotiations. Revenue density analysis proves that deals aging beyond these thresholds generate diminishing returns regardless of win probability. Sales managers should implement weekly pipeline reviews that flag deals approaching age limits, with clear escalation or disqualification protocols to prevent resource drain on low-density opportunities.</p>
+<ol start="3">
+<li><strong> Eliminate Low-ROI Activities</strong></li>
+</ol>
+<p>GTX Basic and MG Special demonstrate high order volume but contribute minimally to bottom-line revenue. Current resource allocation to these products represents inefficient time investment with negligible financial impact. Consider deprioritizing these products in sales quotas and compensation structures, or reassigning them to junior staff for skill development while senior sellers focus on high-value opportunities.</p>
+<ol start="4">
+<li><strong> Implement Product-Centric Sales Strategy</strong></li>
+</ol>
+<p>Abandon sector-based targeting in favor of product-focused sales enablement. Since performance remains consistent across industries, invest in product-specific training, collateral development, and qualification criteria rather than industry expertise. This approach maximizes the transferable knowledge that drives results regardless of market segment.</p>
+<ol start="5">
+<li><strong> Redesign Compensation to Reward Speed</strong></li>
+</ol>
+<p>Current compensation structures likely reward deal closure regardless of timeline, inadvertently incentivizing sales teams to nurse aged deals with poor density. Implement velocity bonuses that multiply commission rates for deals closed within optimal windows (1.5x for &lt;15 days, 1.25x for &lt;30 days). This aligns individual incentives with organizational efficiency and accelerates cash flow.</p>
     </section>
 
-
-
     <section id="projects">
-
+        
     </section>
 
     <footer>
-        <p>&copy; 2026. Contact: heitordesouza3@gmail.com</p>
+        <p>&copy; 2026 Contact: heitordesouza3@gmail.com</p>
     </footer>
 </body>
 </html>
