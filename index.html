@@ -76,8 +76,84 @@
         font-size: inherit;
         padding: 2px;
     }
+.contact-item {
+    display: flex;
+    justify-content: center;
+    align-items: center; /* This is the "magic" line for vertical centering */
+    gap: 8px;            /* Adds a nice space between icon and text */
+}
 
-</style>
+.header-contact-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    color: white; /* Assumes your dark background */
+}
+
+.email-container, .linkedin-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.copy-btn {
+    background: none;
+    border: none;
+    color: inherit;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+}
+
+.copy-btn:hover {
+    opacity: 1;
+}
+
+.linkedin-container img {
+    display: block;
+}
+
+/* Tooltip styling */
+.tooltip-text {
+    visibility: hidden;
+    width: 60px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 4px;
+    padding: 5px;
+    position: absolute;
+    z-index: 1;
+    bottom: 150%; /* Positioned slightly higher for better clearance */
+    left: 50%;
+    margin-left: -30px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    font-size: 10px;
+    pointer-events: none; /* Prevents tooltip from interfering with clicks */
+}
+
+.tooltip-text.show {
+    visibility: visible;
+    opacity: 1;
+}
+
+.separator {
+    opacity: 0.5;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
     </style>
 </head>
 <body>
@@ -85,7 +161,45 @@
 <header>
     <h1>HEITOR DE SOUZA</h1>
     <p>Data Analysis | SQL | Power BI</p>
-    <p><img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" alt="LinkedIn" width="20" height="20"><a href="https://www.linkedin.com/in/heitordesouza3" target="_blank"> Check my Linkedin</a></p>
+    
+<div class="header-contact-row">
+    <div class="email-container">
+        <span class="icon">✉️</span>
+        <span id="email-text">heitordesouza3@gmail.com</span>
+        
+        <div class="copy-wrapper" style="position: relative; display: inline-flex;">
+            <button onclick="copyEmail(this)" class="copy-btn" title="Copy Email">
+                <svg id="copy-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                </svg>
+                <span id="tooltip" class="tooltip-text">Copied!</span>
+            </button>
+        </div>
+    </div>
+
+    <span class="separator">|</span>
+
+    <div class="linkedin-container">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" alt="LinkedIn" style="height: 18px;">
+        <a href="https://www.linkedin.com/in/heitordesouza3" target="_blank">Check my Linkedin</a>
+    </div>
+</div>
+
+<script>
+function copyEmail(btn) {
+    const email = document.getElementById('email-text').innerText;
+    navigator.clipboard.writeText(email);
+    
+    const tooltip = btn.querySelector('.tooltip-text');
+    tooltip.classList.add('show');
+    
+    // Hide it after 2 seconds
+    setTimeout(() => {
+        tooltip.classList.remove('show');
+    }, 1500);
+}
+</script>
 
 </header>
 
@@ -275,6 +389,7 @@
     </footer>
 </body>
 </html>
+
 
 
 
